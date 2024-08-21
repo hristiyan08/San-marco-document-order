@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@479&display=swap');
 body,html{
-    overflow:hidden ;
+    overflow-x:hidden ;
 
 }
 .login{
@@ -164,6 +164,7 @@ font-size: 36px;
     left: 0;
     top: 0;
     place-content: 1;
+    position: fixed;
 }
 
 .title-admin{
@@ -278,7 +279,7 @@ font-size: 20px;
 }
 .product-picture{
   position: relative;
-bottom: 75px;
+bottom: 55px;
 left: 0px;
     max-width: 150px;
     display: block;        /* Remove default inline spacing around images */
@@ -286,13 +287,15 @@ left: 0px;
 }
 .product-name{
     position: relative;
-    top: 150px;
+    top: 180px;
     left: 5px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .product-price{
     position: relative;
-    top: 123px;
-    left: 140px;
+    top: 151px;
+    left: 170px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 
@@ -305,7 +308,7 @@ left: 0px;
 }
 
 .product {
-    flex: 1 1 200px;       /* Allow items to grow and shrink, with a base width of 200px */
+    flex: 1 1 250px;       /* Allow items to grow and shrink, with a base width of 200px */
     border: 1px solid #ddd; /* Add a border around each product */
     border-radius: 5px;    /* Rounded corners for the border */
     padding: 10px;         /* Padding inside each product element */
