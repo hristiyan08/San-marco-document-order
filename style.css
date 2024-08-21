@@ -154,7 +154,7 @@ font-size: 36px;
 }
 
 .admin-panel{
-    height: 100vh;
+    height: 100%;
     width: 15%;
     background-color: rgb(41, 41, 41);
     position: absolute;
@@ -184,4 +184,8 @@ font-size: 36px;
     left: 25px;
     cursor: pointer;
     font-family:Arial, Helvetica, sans-serif;
+}
+#exit-profile{
+    position: absolute;
+    bottom: 10px;
 }

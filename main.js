@@ -125,3 +125,9 @@ window.addEventListener("beforeunload", (event) => {
     }
 }
 
+
+document.getElementById('exit-profile').addEventListener('click',function exitFromProfile(){
+    localStorage.removeItem('password');
+    adminPage.style.display = "none";
+        loginPage.style.display = "block";
+});
