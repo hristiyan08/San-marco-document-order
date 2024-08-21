@@ -46,11 +46,12 @@
         <h1 class="admin-content-title">Продукти</h1>
         <input type="button" value="Добави продукт" class="log-in-button" id="add-product">
 
-        <div class="add-product-menu">
-            <h1>Добавяне на продукт</h1>
-            <label class="name-of-product">Име на продукт: <input type="text" placeholder class="key-input" required><samp style="color: red;">*</samp></label><br>
-            <label class="name-of-product">Цена на продукт: <input type="text" placeholder class="key-input" required> лв.<samp style="color: red;">*</samp></label><br>
-            <label class="name-of-product">Снимка на продукт: <input type="file" required><samp style="color: red;">*</samp></label><br>
+        <div class="add-product-menu" id="add-product-menu" style="display: none;">
+            <h1 class="title-of-product-menu">Добавяне на продукт   <i class="fa-solid fa-circle-xmark" id="close-add-product-menu"></i></h1>
+          <br>
+            <label class="name-of-product">Име на продукт: <input type="text" placeholder class="key-input" required></label><br>
+            <label class="price-of-product">Цена на продукт: <input type="text" placeholder class="key-input" required> лв.</label><br>
+            <label class="picture-of-product">Снимка на продукт: <input type="file" required></label><br>
             <input type="submit" value="Добави продукт" class="log-in-button" id="add-product-button">  
         </div>
     </div>

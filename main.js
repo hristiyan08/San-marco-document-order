@@ -131,3 +131,15 @@ document.getElementById('exit-profile').addEventListener('click',function exitFr
     adminPage.style.display = "none";
         loginPage.style.display = "block";
 });
+
+const addProductMenu = document.getElementById("add-product-menu");
+document.getElementById("add-product").addEventListener('click', function(){
+
+addProductMenu.style.display = "block";
+adminPage.classList.add("blur");
+document.getElementById("close-add-product-menu").addEventListener("click", function(){
+    addProductMenu.style.display = "none";
+    adminPage.classList.remove("blur");
+});
+
+});
