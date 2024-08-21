@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@479&display=swap');
+
 .login{
     text-align: center  ;
     border: 1px solid black;
@@ -12,7 +15,8 @@
 }
 
 .description{
-    background-color: rgba(81, 128, 216, 0.677);
+    background-color: rgb(41, 41, 41);
+    color: white;
     width: 100%;
     position: absolute;
     top: 0%;
@@ -55,7 +59,8 @@ border-right: 0;
 }
 
 .log-in-button:hover{
-    background-color: rgba(81, 128, 216, 0.677);
+    background-color: rgb(41, 41, 41);
+    color: white;
 }
 
 .remember-me-box{
@@ -145,3 +150,21 @@ font-size: 36px;
     }
 }
 
+.admin-panel{
+    height: 100vh;
+    width: 15%;
+    background-color: rgb(41, 41, 41);
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.title-admin{
+    color: white;
+    font-family: "Edu VIC WA NT Beginner", cursive;
+    font-optical-sizing: auto;
+    font-weight: 479;
+    font-style: normal;
+
+    text-align: center;
+}
