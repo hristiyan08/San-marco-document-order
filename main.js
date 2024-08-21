@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { set, getDatabase, ref, child, get, push} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -143,3 +143,49 @@ document.getElementById("close-add-product-menu").addEventListener("click", func
 });
 
 });
+
+
+        // Import necessary functions from Firebase SDK
+   
+    
+
+        function convertImageToDataURL(file, callback) {
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                const dataURL = reader.result;
+                callback(dataURL);
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        document.getElementById("add-product-button").addEventListener('click', function() {
+            const nameOfProduct = document.getElementById("name-of-product").value;
+            const priceOfProduct = document.getElementById("price-of-product").value;
+            const file = document.getElementById("picture-of-product").files[0];
+
+            if (file) {
+                convertImageToDataURL(file, function(dataURL) {
+                    writeUserData(nameOfProduct, priceOfProduct, dataURL);
+                });
+            } else {
+                writeUserData(nameOfProduct, priceOfProduct, null);
+            }
+        });
+
+        function writeUserData(nameOfProduct, priceOfProduct, dataURL) {
+            const productRef = ref(db, 'products/');
+            const newProductRef = push(productRef);
+            set(newProductRef, {
+                nameOfProduct: nameOfProduct,
+                priceOfProduct: priceOfProduct,
+                profile_picture: dataURL || null
+            })
+            .then(() => {
+                console.log("Product added successfully.");
+            })
+            .catch((error) => {
+                console.error("Error adding product:", error);
+            });
+        }
