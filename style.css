@@ -89,6 +89,9 @@ border-right: 0;
 }
 
 .fa-solid{
+    color: white;
+}
+.fa-circle-check{
     color: green;
 }
 .toast1 i{
@@ -177,7 +180,8 @@ font-size: 36px;
     margin-top: 10px;
     color: white;
     font-size: 22px;
-    text-align: center;
+    position: relative;
+    left: 25px;
     cursor: pointer;
     font-family:Arial, Helvetica, sans-serif;
 }
