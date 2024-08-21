@@ -270,3 +270,59 @@ font-size: 20px;
     font-style: normal;
 
 }
+
+.product{
+    border: 1px solid black;
+    width: 20%;
+    margin-top: 15px;
+}
+.product-picture{
+  position: relative;
+bottom: 75px;
+left: 0px;
+    max-width: 150px;
+    display: block;        /* Remove default inline spacing around images */
+    margin: 0 auto; 
+}
+.product-name{
+    position: relative;
+    top: 150px;
+    left: 5px;
+}
+.product-price{
+    position: relative;
+    top: 123px;
+    left: 140px;
+}
+
+
+#product-container {
+    display: flex;         /* Enable flexbox layout */
+    flex-wrap: wrap;       /* Allow wrapping onto new lines */
+    gap: 20px;             /* Space between items */
+    padding: 10px;         /* Padding around the container */
+    justify-content: flex-start; /* Align items to the start of the container */
+}
+
+.product {
+    flex: 1 1 200px;       /* Allow items to grow and shrink, with a base width of 200px */
+    border: 1px solid #ddd; /* Add a border around each product */
+    border-radius: 5px;    /* Rounded corners for the border */
+    padding: 10px;         /* Padding inside each product element */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        /* Center text inside product elements */
+}
+
+
+
+.product-name, .product-price {
+    margin: 10px 0;        /* Vertical margin for spacing between text elements */
+}
+
+.delete-icon {
+    cursor: pointer; /* Променете курсора при задържане на иконата */
+    color: red; /* Цвят на иконата */
+    font-size: 24px; /* Размер на иконата */
+    display: inline-block; /* Подредба в един ред с други елементи */
+    margin: 0 10px; /* Разстояние около иконата */
+}
