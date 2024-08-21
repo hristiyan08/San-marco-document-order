@@ -95,7 +95,7 @@ function showToastForError(){
 
     let toast = document.createElement("div");
     toast.classList.add("toast2");
-    toast.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Грешна парола!';
+    toast.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Грешен ключ!';
     toastBox.appendChild(toast);
 
     setTimeout(()=>{
