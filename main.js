@@ -268,4 +268,10 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 
     loadProductData(); // Call this function to load product data on page load
+
+
+
+    const products = document.getElementById("products").addEventListener('click', function(){
+         document.getElementById("product-meny").style.display = "block";
+    });
 });
