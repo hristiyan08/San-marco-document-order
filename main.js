@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, child, get, set, push } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getDatabase, ref, child, get, set, push, remove         } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
 window.addEventListener("DOMContentLoaded", function() {
     // Your web app's Firebase configuration
@@ -74,6 +74,17 @@ window.addEventListener("DOMContentLoaded", function() {
         }, 6000);
     }
 
+    function removeItem(itemId) {
+        const itemRef = ref(db, 'products/', 'productRef/' );
+        remove(itemRef)
+            .then(() => {
+                console.log('Item removed successfully');
+            })
+            .catch((error) => {
+                console.error('Error removing item:', error);
+            });
+    }
+    
     function showToastForError() {
         let toast = document.createElement("div");
         toast.classList.add("toast2");
@@ -156,7 +167,6 @@ window.addEventListener("DOMContentLoaded", function() {
             console.error("Error adding product:", error);
         });
     }
-
     function loadProductData() {
         const dbRef = ref(db, 'products/');
         get(dbRef).then((snapshot) => {
@@ -164,38 +174,87 @@ window.addEventListener("DOMContentLoaded", function() {
                 const products = snapshot.val();
                 const productContainer = document.getElementById("product-container");
                 productContainer.innerHTML = ""; // Clear previous products
-
+    
                 for (const key in products) {
                     if (products.hasOwnProperty(key)) {
                         const product = products[key];
-
+    
                         // Create a new product element
                         const productElement = document.createElement("div");
                         productElement.classList.add("product");
-
+                        productElement.dataset.key = key; // Store product key as a data attribute
+    
                         const imageElement = document.createElement("img");
                         imageElement.src = product.profile_picture || 'default-image.png'; // Fallback image
                         imageElement.alt = "Product Image";
-                        imageElement.classList.add("product-picture"); // Limit image size
-
+                        imageElement.classList.add("product-picture");
+    
                         const nameElement = document.createElement("p");
                         nameElement.textContent = `Име: ${product.nameOfProduct}`;
                         nameElement.classList.add("product-name");
-
+                        nameElement.value = product.nameOfProduct;
                         const priceElement = document.createElement("p");
                         priceElement.textContent = `Цена: ${product.priceOfProduct} лв.`;
                         priceElement.classList.add("product-price");
-                      
-                        const deleteElement = document.createElement("p");
-                        deleteElement.innerHTML = '<i class="fa-solid fa-trash"></i>'; // Включете HTML за иконата
-                        deleteElement.classList.add("delete-icon"); // Добавете клас за стилове
+                        priceElement.value = product.priceOfProduct;
                         // Append elements to the product element
+                        productElement.appendChild(imageElement);
                         productElement.appendChild(nameElement);
                         productElement.appendChild(priceElement);
-                        productElement.appendChild(imageElement);
-                        productElement.appendChild(deleteElement);
+    
                         // Append the product element to the container
                         productContainer.appendChild(productElement);
+    
+                        // Add event listener to the newly created product element
+                        productElement.addEventListener('click', function() {
+                            // Access the data-key of the clicked element
+                             const key = this.dataset.key;
+                            const nameForEdit = this.querySelector('.product-name').textContent;
+                            const priceForEdit = this.querySelector('.product-price').textContent;
+                            const imageForEdit = this.querySelector('.product-picture').src;
+
+                            const nameElement = this.querySelector('.product-name');
+                            const priceElement = this.querySelector('.product-price');
+                            const imageElement = this.querySelector('.product-picture');
+                            
+                            if (nameElement && priceElement && imageElement) {
+                                const nameForEdit = nameElement.textContent;
+                                const priceForEdit = priceElement.textContent;
+                                const imageForEdit = imageElement.src;
+                            
+                                document.getElementById("edit-product-meny").style.display = "block";
+                                document.getElementById("product-container").style.filter = "blur(5px)";
+                            
+                                document.getElementById("name-of-product-edit").value = nameForEdit;
+                                document.getElementById("price-of-product-edit").value = priceForEdit;
+                                document.getElementById("edit-product-picture").src = imageForEdit;
+
+                                document.getElementById("close-edit-product-menu").addEventListener("click", function(){
+                                    document.getElementById("edit-product-meny").style.display = "none";
+                                    document.getElementById("product-container").style.filter = "";
+                                });
+
+                                document.getElementById("remove-product").addEventListener("click", function() {
+                                    if (key) {
+                                        const productRef = ref(db, 'products/' + key);
+                                        remove(productRef)
+                                            .then(() => {
+                                                console.log('Product removed successfully');
+                                                location.reload();
+                                                // Може да искате да обновите списъка с продукти тук
+                                            })
+                                            .catch((error) => {
+                                                console.error('Error removing product:', error);
+                                            });
+                                    } else {
+                                        console.error('No product key found');
+                                    }
+                                });
+                            } else {
+                                console.error('One or more elements are missing.');
+                            }
+
+                        });
                     }
                 }
             } else {
@@ -205,6 +264,9 @@ window.addEventListener("DOMContentLoaded", function() {
             console.error(error);
         });
     }
-
+    
     loadProductData(); // Call this function to load product data on page load
-});
+    // Call this function to load product data on page load
+    
+    
+})

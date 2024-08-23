@@ -47,11 +47,7 @@
         <input type="button" value="Добави продукт" class="log-in-button" id="add-product">
  
             <div id="product-container">
-                <div class="elements">
-                  
-                </div>
-               <br>
-           
+          
             </div>
 
         <div class="add-product-menu" id="add-product-menu" style="display: none;">
@@ -62,6 +58,22 @@
             <label class="picture-of-product">Снимка на продукт: <input type="file" accept="image/*" required id="picture-of-product"></label><br>
             <input type="submit" value="Добави продукт" class="log-in-button" id="add-product-button">  
         </div>
+
+        <div class="edit" id="edit-product-meny" style="display: none">
+          <img src="" class="picture-of-product" id="edit-product-picture">
+          <h1 class="edit-product-title">Редактирай продукт:</h1>
+          
+          <label class="edit-name-of-product"> 
+              <input type="text" id="name-of-product-edit" class="key-input" value="">
+          </label><br>
+          <label class="edit-price-of-product"> 
+              <input type="text" id="price-of-product-edit" class="key-input" value="">
+          </label><br>
+          <i class="fa-solid fa-trash" id="remove-product"></i>
+          <i class="fa-solid fa-circle-xmark" id="close-edit-product-menu"></i>
+          <input type="button" value="Запази промените" class="save-changes-edit-product">
+      </div>
+      
     </div>
 
     </div>

@@ -41,6 +41,7 @@ border-bottom:2px solid black ;
 border-top: 0;
 border-left: 0;
 border-right: 0;
+background: transparent;
 }
 
 .key-input::placeholder{
@@ -328,4 +329,95 @@ left: 0px;
     font-size: 24px; /* Размер на иконата */
     display: inline-block; /* Подредба в един ред с други елементи */
     margin: 0 10px; /* Разстояние около иконата */
+}
+
+#product-container{
+    cursor: pointer;
+}
+.edit{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 30%;
+    height:70%;
+    border: 1px solid gray;
+    text-align: center;
+}
+
+#edit-product-picture{
+    height: 30%;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.edit-product-title{
+    position: relative;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.edit-name-of-product{
+    position: relative;
+    top: 50%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.edit-price-of-product{
+    position: relative;
+    top: 60%;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+#name-of-product-edit{
+    background-color: transparent;
+}
+#remove-product{
+    color: grey;
+    position: relative;
+    top: -15%;
+    left: 50%;
+    cursor: pointer;
+    font-size: 20px;
+}
+#remove-product:hover{
+    color: red;
+  
+}
+
+#close-edit-product-menu{
+    color: grey;
+    position: relative;
+    top: -15%;
+    left: 55%;
+    cursor: pointer;
+    font-size: 20px;  
+}
+#close-edit-product-menu:hover{
+    color: red;
+  
+}
+
+
+.save-changes-edit-product{
+    position: relative;
+    top: 65%;
+    border: 2px solid black;
+    left: 15%;
+    transform: translate(-50%);
+    width: 200px;
+    height: 40px;
+    background-color: transparent;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.save-changes-edit-product:hover{
+    background-color: rgb(41, 41, 41);
+    color: white;
 }
