@@ -278,9 +278,12 @@ font-size: 20px;
     width: 20%;
     margin-top: 15px;
 }
+.product:hover{
+    box-shadow: 0 16px 18px rgba(0, 0, 0, 0.1);
+}
 .product-picture{
   position: relative;
-bottom: 55px;
+bottom: 10px;
 left: 0px;
     max-width: 150px;
     display: block;        /* Remove default inline spacing around images */
@@ -288,13 +291,13 @@ left: 0px;
 }
 .product-name{
     position: relative;
-    top: 180px;
+    top: 18px;
     left: 5px;
     font-family: Arial, Helvetica, sans-serif;
 }
 .product-price{
     position: relative;
-    top: 151px;
+    top: -8px;
     left: 170px;
     font-family: Arial, Helvetica, sans-serif;
 }
