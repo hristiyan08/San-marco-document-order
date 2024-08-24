@@ -118,10 +118,10 @@ window.addEventListener("DOMContentLoaded", function() {
     const addProductMenu = document.getElementById("add-product-menu");
     document.getElementById("add-product").addEventListener('click', function() {
         addProductMenu.style.display = "block";
-        adminPage.classList.add("blur");
+       document.getElementById("product-container").style.filter = "blur(7px)";
         document.getElementById("close-add-product-menu").addEventListener("click", function() {
             addProductMenu.style.display = "none";
-            adminPage.classList.remove("blur");
+            document.getElementById("product-container").style.filter = "";
         });
     });
 
