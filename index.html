@@ -9,6 +9,8 @@
     <script src="https://kit.fontawesome.com/8cf34aa24e.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+
     <div class="login" id="login">
         <div class="description">
             <h1>Вход</h1>
@@ -36,7 +38,7 @@
         <h1 class="properties"><i class="fa-solid fa-gift"></i> Отстъпки</h1><br> 
         <h1 class="properties"><i class="fa-solid fa-warehouse"></i> Складова програма</h1><br> 
         <h1 class="properties"><i class="fa-solid fa-bucket"></i> Поръчки</h1><br>
-      
+        <h1 class="properties" id="usersForAdminPage" ><i class="fa-solid fa-user"></i> Служители</h1><br>
         <h1 class="properties" id="exit-profile"><i class="fa-solid fa-right-from-bracket"></i> Изход</h1><br>
 
       </div>
@@ -75,6 +77,41 @@
       </div>
       
     </div>
+
+
+<div class="users"> 
+  
+  <h1 class="users-title">Управление на служители </h1>
+  <button class="add-user-button" id="add-user">Добавяне на служител</button>
+
+  <div id="users-table">
+    <table>
+      <thead>
+          <tr>
+              <th>Име на служител:</th>
+              <th>Код за достъп:</th>
+          </tr>
+      </thead>
+      <tbody id="user-table-body">
+          <!-- Rows will be dynamically added here -->
+      </tbody>
+  </table>
+  
+  </div>
+
+  <div id="add-users-menu" class="add-users-menu">  
+    <i class="fa-solid fa-circle-xmark" id="close-add-user-menu" style="cursor: pointer; :hover{color:red}"></i>
+    <h1 class="add-user-menu-title">Добавяне на служител</h1>
+  <label class="name-of-product" id="name-of-user">Име: <input type="text" id="username" class="key-input"></label><br>
+  <label class="name-of-product" id="code-for-user">Koд за достъп: <input type="button" id="create-user-key" class="save-changes-edit-product" value="Създай код за достъп" ></label>
+   
+</div>
+<div class="add-users-menu" style="display: none;" id="add-users-menu-code-show">
+  <h1 class="title-admin" style="color: black;">Добавен е нов служител:</h1>
+  <h2 id="name-of-user-1" class="title-admin" style="color: black;"></h1>
+  <h2 id="key-of-user-1" class="title-admin" style="color: black;"></h1>
+</div>
+</div>
 
     </div>
 
