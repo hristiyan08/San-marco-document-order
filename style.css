@@ -521,3 +521,66 @@ table, th, td {
 #remove-user{
     color: gray;
 }
+
+.goods-receipt-menu, .add-receipt-menu{
+    position: absolute;
+    left: 16%;
+    height: 80vh;
+    width: 80%;
+    
+}
+
+#add-new-receipt{
+    width: 320px;
+    position: absolute;
+    top: 5%;
+    left: 90%;
+}
+#paint-receipt{
+    color: gray;
+    font-size: 56px;
+}
+.paint, .decoration, .primer, .products{
+    text-align: center;
+    border: 1px solid black;
+    width: 10%;
+    height: 20%;
+    border-radius: 50%;
+      cursor: pointer;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+}
+.paint{
+    position: absolute ;
+    top: 40%;
+    left: 20%;
+    transform: translate(-50%);
+}
+.decoration{
+    position: absolute ;
+    top: 40%;
+    left: 40%;
+    transform: translate(-50%);
+
+}
+.primer{
+    position: absolute ;
+    top: 40%;
+    left: 60%;
+    transform: translate(-50%);
+
+}
+
+.products{
+    position: absolute ;
+    top: 40%;
+    left: 80%;
+    transform: translate(-50%);
+}
+
+.paint-laguna, .decoration-cadoro, .primer-idrofis, .painter-tool{
+    height: 70px;
+}
+
+
+

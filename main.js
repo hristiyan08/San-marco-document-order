@@ -317,5 +317,74 @@ function checkIfPasswordExists() {
 
         document.getElementById("users-table").style.filter = "";
     })
+
     
+    document.getElementById('usersForAdminPage').addEventListener('click', function(){
+        document.getElementById ('user-menu').style.display = 'block';
+  
+})
+
+let number = 0;
+let paintChoosen = false;
+let decorationChoosen = false;
+let primerChoosen = false;
+let productChoosen = false;
+
+document.getElementById("paint").addEventListener('click', function() {
+    if (!paintChoosen) {
+        paintChoosen = true;
+        number += 1;
+        nextButtonValue();
+        this.disabled = true;
+    }
+
+
+});
+
+document.getElementById("decoration").addEventListener('click', function() {
+    if (!decorationChoosen) {
+        decorationChoosen = true;
+        number += 1;
+        nextButtonValue();
+        
+    }
+    else{
+        decorationChoosen = false;
+        number -= 1;
+       
+       
+    }
+});
+
+document.getElementById("primer").addEventListener('click', function() {
+    if (!primerChoosen) {
+        primerChoosen = true;
+        number += 1;
+        nextButtonValue();
+        this.readOnly = true;
+    }
+});
+
+document.getElementById("products-1").addEventListener('click', function() {
+    if (!productChoosen) {
+        productChoosen = true;
+        number += 1;
+        nextButtonValue();
+        this.disabled = true;
+    }
+});
+
+function nextButtonValue() {
+    const nextButton = document.getElementById('next-1');
+    if (number === 0) {
+        nextButton.value = `Напред`;
+        nextButton.disabled = true;
+    } else {
+        nextButton.value = `Напред (${number})`;
+        nextButton.disabled = false;
+    }
+}
+
+nextButtonValue();  
+
 }
