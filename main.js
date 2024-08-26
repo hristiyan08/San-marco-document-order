@@ -330,48 +330,52 @@ let decorationChoosen = false;
 let primerChoosen = false;
 let productChoosen = false;
 
-document.getElementById("paint").addEventListener('click', function() {
-    if (!paintChoosen) {
-        paintChoosen = true;
-        number += 1;
-        nextButtonValue();
-        this.disabled = true;
+function createCheckMark(elementId) {
+    let element = document.getElementById(elementId);
+    
+    // Remove existing checkmark if present
+    let existingMark = element.querySelector('.check-mark');
+    if (existingMark) {
+        existingMark.remove();
+    } else {
+        // Create a new checkmark element
+        let clickMark = document.createElement("i");
+        clickMark.className = "fa-solid fa-circle-check check-mark";
+        clickMark.style.position = "absolute"; // Position it within the parent element
+        clickMark.style.top = "10px"; // Adjust as necessary
+        clickMark.style.right = "10px"; // Adjust as necessary
+        element.appendChild(clickMark);
     }
+}
 
+function updateSelection(elementId, isSelected, stateVariable) {
+    stateVariable = !isSelected;
+    if (stateVariable) {
+        number += 1;
+        createCheckMark(elementId);
+    } else {
+        number -= 1;
+        createCheckMark(elementId);
+    }
+    nextButtonValue();
+    return stateVariable; // Return the updated state
+}
 
+// Event Listeners for each item
+document.getElementById("paint").addEventListener('click', function() {
+    paintChoosen = updateSelection("paint", paintChoosen, paintChoosen);
 });
 
 document.getElementById("decoration").addEventListener('click', function() {
-    if (!decorationChoosen) {
-        decorationChoosen = true;
-        number += 1;
-        nextButtonValue();
-        
-    }
-    else{
-        decorationChoosen = false;
-        number -= 1;
-       
-       
-    }
+    decorationChoosen = updateSelection("decoration", decorationChoosen, decorationChoosen);
 });
 
 document.getElementById("primer").addEventListener('click', function() {
-    if (!primerChoosen) {
-        primerChoosen = true;
-        number += 1;
-        nextButtonValue();
-        this.readOnly = true;
-    }
+    primerChoosen = updateSelection("primer", primerChoosen, primerChoosen);
 });
 
 document.getElementById("products-1").addEventListener('click', function() {
-    if (!productChoosen) {
-        productChoosen = true;
-        number += 1;
-        nextButtonValue();
-        this.disabled = true;
-    }
+    productChoosen = updateSelection("products-1", productChoosen, productChoosen);
 });
 
 function nextButtonValue() {
@@ -380,11 +384,11 @@ function nextButtonValue() {
         nextButton.value = `Напред`;
         nextButton.disabled = true;
     } else {
-        nextButton.value = `Напред (${number})`;
+        nextButton.value = `Напред`;
         nextButton.disabled = false;
     }
 }
 
-nextButtonValue();  
-
+// Initialize button state
+nextButtonValue();
 }
