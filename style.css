@@ -239,8 +239,8 @@ font-size: 36px;
 
 #add-product-button{
     position: absolute;
-    top: 70%;
-    width: 30%;
+    top: 260%;
+    width: 80%;
 }
 .name-of-product, .price-of-product, .picture-of-product{
 font-family: Arial, Helvetica, sans-serif;
@@ -253,7 +253,7 @@ font-size: 20px;
 }
 .picture-of-product{
     position: relative;
-    top: 100px;
+    top: 80px;
 }
 #close-add-product-menu{
     color: gray;
@@ -610,4 +610,13 @@ table, th, td {
     position: absolute;
     top: 5%;
     left: 16%;
+}
+
+.type-of-product{
+    position: absolute;
+    left: 50%;
+    top: 32%;
+    transform: translate(-50%);
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
 }
