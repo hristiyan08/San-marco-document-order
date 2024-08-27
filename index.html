@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMDP</title>
     <link rel="stylesheet" href="style.css">
-    <script src="main.js" type="module"></script>
+    <script src="log-in-page.js" type="module"></script>
+    <script src="user-page.js" type="module"></script>
+    <script src="admin-panel-functionality.js"></script>
+    <script src="products-menu.js" type="module"></script>
     <script src="https://kit.fontawesome.com/8cf34aa24e.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -25,30 +28,30 @@
     </form>
     </div>
 
-    <div id="notificationBox"></div> 
-
     <div class="menu" id="menu" style="display: none;">
     
       <div class="admin-panel">
         <h1 class="title-admin">San Marco Admin</h1>
         <hr><br>
-        <h1 class="properties"><i class="fa-solid fa-file"></i> Стокови разписки</h1><br>
-        <h1 class="properties"><i class="fa-solid fa-fill-drip"></i> Карпотека</h1><br>
-        <h1 class="properties" id="products"><i class="fa-solid fa-paint-roller"></i> Продукти</h1><br>
-        <h1 class="properties"><i class="fa-solid fa-gift"></i> Отстъпки</h1><br> 
-        <h1 class="properties"><i class="fa-solid fa-warehouse"></i> Складова програма</h1><br> 
-        <h1 class="properties"><i class="fa-solid fa-bucket"></i> Поръчки</h1><br>
-        <h1 class="properties" id="usersForAdminPage" ><i class="fa-solid fa-user"></i> Служители</h1><br>
+        <h1 class="properties" data-target="goods-receipt-menu"><i class="fa-solid fa-file"></i> Стокови разписки</h1><br>
+        <h1 class="properties" data-target=""><i class="fa-solid fa-fill-drip"></i> Карпотека</h1><br>
+        <h1 class="properties" data-target="product-meny"><i class="fa-solid fa-paint-roller"></i> Продукти</h1><br>
+        <h1 class="properties" data-target=""><i class="fa-solid fa-gift"></i> Отстъпки</h1><br> 
+        <h1 class="properties" data-target=""><i class="fa-solid fa-warehouse"></i> Складова програма</h1><br> 
+        <h1 class="properties" data-target=""><i class="fa-solid fa-bucket"></i> Поръчки</h1><br>
+        <h1 class="properties" data-target="user-menu"><i class="fa-solid fa-user"></i> Служители</h1><br>
         <h1 class="properties" id="exit-profile"><i class="fa-solid fa-right-from-bracket"></i> Изход</h1><br>
 
       </div>
 
-    <div class="defaut"></div>
-    <div class="admin-content" id="product-meny" style="display: none;">
+    <div class="defaut" id="defaut"></div>
+
+
+    <div class="admin-content" id="product-meny" style="display: none;"  name="action-menu">
         <h1 class="admin-content-title">Продукти</h1>
         <input type="button" value="Добави продукт" class="log-in-button" id="add-product">
  
-            <div id="product-container">
+            <div id="product-container" >
           
             </div>
 
@@ -78,13 +81,13 @@
       
     </div>
 
-    <div class="goods-receipt-menu" style="display: none;">
+    <div class="goods-receipt-menu" style="display: none;" name="action-menu" id="goods-receipt-menu"> 
     <h1>Стокови разписки</h1>
     <button class="log-in-button" id="add-new-receipt">Добави нова стокова разписка</button>
     <div class="goods-receipt-table"></div>
 
     </div>
- <div class="add-receipt-menu">
+ <div class="add-receipt-menu" style="display: none;">
       <h1>Моля, изберете видовете продукти:</h1>
       <div class="paint" id="paint"><h2><img src="360_X6lCczYqGAYMjB2gsJpsc.png" class="paint-laguna"><br>Боя</h2></div>
       <div class="decoration" id="decoration"><h2><img src="Cadoro.png" class="decoration-cadoro"><br>Мазилка</h2></div>
@@ -94,8 +97,14 @@
       <input id="next-1" type="button">
     </div>
     
+<div class="add-receipt-menu-paint" style="display: none;" >
 
-<div class="users" style="display: none;" id="user-menu"> 
+<h1>Моля, изберете вида боя:</h1>
+<div id="product-container"></div>
+</div>
+
+
+<div class="users" style="display: none;" id="user-menu" name="action-menu"> 
   
   <h1 class="users-title">Управление на служители </h1>
   <button class="add-user-button" id="add-user">Добавяне на служител</button>

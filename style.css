@@ -231,6 +231,8 @@ font-size: 36px;
    text-align: center;
    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
    place-content: 2;
+
+
 }
 
 
@@ -490,7 +492,7 @@ left: 0px;
 }
 table{
     position: absolute;
-    left: 50%;
+    left: 45%;
     top: 20%;
     transform: translate(-50%);
     text-align: center  ;
@@ -600,4 +602,12 @@ table, th, td {
 #next-1:hover{
     background-color: rgb(41, 41, 41);
     color: white;
+}
+
+.add-receipt-menu-paint{
+   width: 80%;
+   height: 90vh;
+    position: absolute;
+    top: 5%;
+    left: 16%;
 }
