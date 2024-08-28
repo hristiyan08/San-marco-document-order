@@ -542,7 +542,7 @@ table, th, td {
     color: gray;
     font-size: 56px;
 }
-.paint, .decoration, .primer, .products{
+.paint, .decoration, .primer, .products, .fasade{
     text-align: center;
     border: 1px solid black;
     width: 10%;
@@ -555,20 +555,20 @@ table, th, td {
 .paint{
     position: absolute ;
     top: 40%;
-    left: 20%;
+    left: 10%;
     transform: translate(-50%);
 }
 .decoration{
     position: absolute ;
     top: 40%;
-    left: 40%;
+    left: 30%;
     transform: translate(-50%);
 
 }
 .primer{
     position: absolute ;
     top: 40%;
-    left: 60%;
+    left: 50%;
     transform: translate(-50%);
 
 }
@@ -576,11 +576,18 @@ table, th, td {
 .products{
     position: absolute ;
     top: 40%;
-    left: 80%;
+    left: 70%;
     transform: translate(-50%);
 }
 
-.paint-laguna, .decoration-cadoro, .primer-idrofis, .painter-tool{
+.fasade{
+    position: absolute ;
+    top: 40%;
+    left: 90%;
+    transform: translate(-50%);
+}
+
+.paint-laguna, .decoration-cadoro, .primer-idrofis, .painter-tool, .fasade-acrysil{
     height: 70px;
 }
 
@@ -597,6 +604,7 @@ table, th, td {
     border-radius: 40px;
     border: 3px solid black;
     height: 40px;
+    
 }
 
 #next-1:hover{
