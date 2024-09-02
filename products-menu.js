@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, get, set, push } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getDatabase, ref, get, set, push, remove, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyChoYjc2MEkOMn2ZR2ni97xtFZmY9j3gdU",
@@ -20,7 +20,7 @@ const addProductMenuButton = document.getElementById("add-product");
 const productBackground = document.getElementById("product-container");
 
 // Show the add product menu
-addProductMenuButton.addEventListener("click", function() {
+addProductMenuButton.addEventListener("click", function () {
     const addProductMenu = document.getElementById("add-product-menu");
     addProductMenu.style.display = "block";
     productBackground.style.filter = "blur(7px)";
@@ -28,7 +28,7 @@ addProductMenuButton.addEventListener("click", function() {
 
 // Close the add product menu
 const closeButton = document.getElementById("close-add-product-menu");
-closeButton.addEventListener("click", function() {
+closeButton.addEventListener("click", function () {
     const addProductMenu = document.getElementById("add-product-menu");
     addProductMenu.style.display = "none";
     productBackground.style.filter = "";
@@ -36,18 +36,18 @@ closeButton.addEventListener("click", function() {
 
 // Add product to database
 const addProductButton = document.getElementById("add-product-button");
-addProductButton.addEventListener("click", function() {
+addProductButton.addEventListener("click", function () {
     const productName = document.getElementById("name-of-product").value;
     const priceOfProduct = document.getElementById("price-of-product").value;
     const typeOfProduct = document.getElementById("type-of-product").value;
-    
+
     // Handle image file upload
     const imageFileInput = document.getElementById("picture-of-product");
     const image = new Promise((resolve, reject) => {
         if (imageFileInput.files.length > 0) {
             const file = imageFileInput.files[0];
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 resolve(e.target.result); // Resolve with base64 URL
             };
             reader.onerror = reject; // Reject if error
@@ -65,23 +65,20 @@ addProductButton.addEventListener("click", function() {
             nameOfProduct: productName,
             priceOfProduct: priceOfProduct,
             typeOfProduct: typeOfProduct,
-         
             image: imageUrl
         });
     })
-    .then(() => {
-        console.log("Product added successfully!");
-        const addProductMenu = document.getElementById("add-product-menu");
-        addProductMenu.style.display = "none";
-        productBackground.style.filter = "";
-        // Optionally update the UI or notify the user here
-    })
-    .catch((error) => {
-        console.error("Error adding product:", error);
-        // Optionally display an error message to the user
-    });
+        .then(() => {
+            console.log("Product added successfully!");
+            const addProductMenu = document.getElementById("add-product-menu");
+            addProductMenu.style.display = "none";
+            productBackground.style.filter = "";
+            loadProductData(); // Reload product data to show the new product
+        })
+        .catch((error) => {
+            console.error("Error adding product:", error);
+        });
 });
-
 
 function loadProductData() {
     const dbRef = ref(db, 'products/');
@@ -124,9 +121,10 @@ function loadProductData() {
             }
 
             // Event delegation for all product elements
-            productContainer.addEventListener("click", function(event) {
+            productContainer.addEventListener("click", function (event) {
                 const productElement = event.target.closest(".product");
                 if (productElement) {
+                    const key = productElement.dataset.key; // Retrieve the product key
                     const name = productElement.querySelector(".product-name").textContent.replace('Име: ', '');
                     const price = productElement.querySelector(".product-price").textContent.replace('Цена: ', '');
                     const imageSrc = productElement.querySelector(".product-picture").src;
@@ -139,12 +137,44 @@ function loadProductData() {
                     productContainer.style.filter = "blur(10px)";
                     document.getElementById("edit-product-meny").style.display = "block";
 
-                    document.getElementById("close-edit-product-menu").addEventListener("click", function() {
+                    // Close edit product menu
+                    document.getElementById("close-edit-product-menu").addEventListener("click", function () {
                         productContainer.style.filter = "";
                         document.getElementById("edit-product-meny").style.display = "none";
                     });
 
-                    
+                    // Remove product
+                    document.getElementById("remove-product").addEventListener("click", function () {
+                        const productRef = ref(db, 'products/' + key);
+                        remove(productRef)
+                            .then(() => {
+                                console.log('Product removed successfully');
+                                loadProductData(); // Reload product data after deletion
+                            })
+                            .catch((error) => {
+                                console.error('Error removing product:', error);
+                            });
+                    });
+
+                    // Update product
+                    document.getElementById('save-changes-edit-product').addEventListener("click", function () {
+                        const updatedData = {
+                            nameOfProduct: document.getElementById('name-of-product-edit').value,
+                            priceOfProduct: document.getElementById('price-of-product-edit').value,
+                            image: document.getElementById('edit-product-picture').src
+                        };
+                        const productRef = ref(db, 'products/' + key);
+                        update(productRef, updatedData)
+                            .then(() => {
+                                console.log('Product updated successfully');
+                                productContainer.style.filter = "";
+                                document.getElementById("edit-product-meny").style.display = "none";
+                                loadProductData(); // Reload product data after updating
+                            })
+                            .catch((error) => {
+                                console.error('Error updating product:', error);
+                            });
+                    });
                 }
             });
 
