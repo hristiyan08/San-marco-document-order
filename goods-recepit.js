@@ -76,7 +76,7 @@ function loadProductData() {
     get(dbRef).then((snapshot) => {
         if (snapshot.exists()) {
             const products = snapshot.val();
-            const productContainer = document.getElementById("product-container-1");
+            const productContainer = document.getElementById("product-container");
             productContainer.innerHTML = ""; // Clear previous products
 
             for (const key in products) {
@@ -117,6 +117,6 @@ function loadProductData() {
                 
             }
         
-        } loadProductData();}
-   
-    )}
+        }
+    }
+    )} loadProductData();

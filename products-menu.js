@@ -81,11 +81,14 @@ addProductButton.addEventListener("click", function () {
 });
 
 function loadProductData() {
+ 
+    
     const dbRef = ref(db, 'products/');
     get(dbRef).then((snapshot) => {
-        if (snapshot.exists()) {
+        if (snapshot.exists()) {   
+        
             const products = snapshot.val();
-            const productContainer = document.getElementById("product-container");
+            const productContainer = document.getElementById("product-container-1");
             productContainer.innerHTML = ""; // Clear previous products
 
             for (const key in products) {
@@ -109,7 +112,9 @@ function loadProductData() {
                     const priceElement = document.createElement("p");
                     priceElement.textContent = `Цена: ${product.priceOfProduct} лв.`;
                     priceElement.classList.add("product-price");
-
+ 
+                    console.log("OK");
+                    
                     // Append elements to the product element
                     productElement.appendChild(imageElement);
                     productElement.appendChild(nameElement);
