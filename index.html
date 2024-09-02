@@ -9,6 +9,7 @@
     <script src="user-page.js" type="module"></script>
     <script src="admin-panel-functionality.js"></script>
     <script src="products-menu.js" type="module"></script>
+    <script src="goods-recepit.js" type="module"></script>
     <script src="https://kit.fontawesome.com/8cf34aa24e.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -51,7 +52,7 @@
         <h1 class="admin-content-title">Продукти</h1>
         <input type="button" value="Добави продукт" class="log-in-button" id="add-product">
  
-            <div id="product-container" >
+            <div id="product-container-1" >
           
             </div>
 
@@ -96,22 +97,31 @@
     <div class="goods-receipt-table"></div>
 
     </div>
- <div class="add-receipt-menu" style="display: none;">
+ <div class="add-receipt-menu" id="add-receipt-menu" style="display: none;">
       <h1>Моля, изберете видовете продукти:</h1>
       <div class="paint" id="paint"><h2><img src="360_X6lCczYqGAYMjB2gsJpsc.png" class="paint-laguna"><br>Боя</h2></div>
       <div class="decoration" id="decoration"><h2><img src="Cadoro.png" class="decoration-cadoro"><br>Мазилка</h2></div>
       <div class="primer" id="primer"><h2><img src="177-383-large.jpg" class="primer-idrofis"><br>Грунд</h2></div>
+      <div class="fasade" id="fasade"><h2><img src="Acrysil_decora.png" class="fasade-acrysil"><br>Фасада</h2></div>
       <div class="products" id="products-1"><h2><img src="Valyak-Dunapren-350x350h.jpg" class="painter-tool"><br>Продукти</h2></div>
 
-      <input id="next-1" type="button">
+      <input id="next-1" type="button" value="Напред" class="log-in-button">
     </div>
     
-<div class="add-receipt-menu-paint" style="display: none;" >
+<div class="add-receipt-menu-paint" id="add-receipt-menu-paint" style="display: none;" >
 
 <h1>Моля, изберете вида боя:</h1>
 <div id="product-container"></div>
+
 </div>
 
+<div class="product-menu-details">
+  <h1>Детайли на продукта:</h1><br>
+    <h2>Избран продукт:</h2><br>
+    <div class="choosen-products"></div>
+    <label>Цвят:<input type="text" class="key-input" placeholder="Моля, въведете цвят"></label><br>
+    
+</div>
 
 <div class="users" style="display: none;" id="user-menu" name="action-menu"> 
   
