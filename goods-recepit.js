@@ -1,7 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getDatabase, ref, child, get, set, push, remove, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+import { getDatabase, ref, get, set, push, remove, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+window.addEventListener("DOMContentLoaded", function() {  
 
-const tableBody = document.getElementById("user-table-body");
+
 const firebaseConfig = {
     apiKey: "AIzaSyChoYjc2MEkOMn2ZR2ni97xtFZmY9j3gdU",
     authDomain: "document--program.firebaseapp.com",
@@ -16,7 +17,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const dbRef = ref(db);
 
 const addNewReceiptButton = document.getElementById("add-new-receipt");
 let count = 0;
@@ -24,7 +24,7 @@ let count = 0;
 function toggleButton(buttonId, isClicked, tickElement) {
     const button = document.getElementById(buttonId);
 
-    button.addEventListener("click", function() {
+    button.addEventListener("click", function () {
         if (!isClicked[buttonId]) {
             isClicked[buttonId] = true;
             tickElement[buttonId] = document.createElement("p");
@@ -43,10 +43,10 @@ function toggleButton(buttonId, isClicked, tickElement) {
     });
 }
 
-addNewReceiptButton.addEventListener("click", function() {
+addNewReceiptButton.addEventListener("click", function () {
     const addNewReceiptMenu = document.getElementById("add-receipt-menu");
     addNewReceiptMenu.style.display = "block";
-    const goodsReceptMenu = document.getElementById("goods-receipt-menu"); 
+    const goodsReceptMenu = document.getElementById("goods-receipt-menu");
     goodsReceptMenu.style.display = "none";
 
     const isClicked = {};
@@ -59,17 +59,14 @@ addNewReceiptButton.addEventListener("click", function() {
     toggleButton("fasade", isClicked, tickElement);
 
     const nextButton = document.getElementById("next-1");
-    nextButton.addEventListener("click", function() {
-      
-            if (isClicked["paint"]) {
-                const paintMenu = document.getElementById("add-receipt-menu-paint");
-                paintMenu.style.display = "block";
-                addNewReceiptMenu.style.display = "none";
-            }
-        
+    nextButton.addEventListener("click", function () {
+        if (isClicked["paint"]) {
+            const paintMenu = document.getElementById("add-receipt-menu-paint");
+            paintMenu.style.display = "block";
+            addNewReceiptMenu.style.display = "none";
+        }
     });
 });
-
 
 function loadProductData() {
     const dbRef = ref(db, 'products/');
@@ -82,41 +79,78 @@ function loadProductData() {
             for (const key in products) {
                 if (products.hasOwnProperty(key)) {
                     const product = products[key];
-                         if(product.typeOfProduct == "paint"){
+                    if (product.typeOfProduct === "paint") {
 
-                      
-                    // Create a new product element
-                    const productElement = document.createElement("div");
-                    productElement.classList.add("product");
-                    productElement.dataset.key = key; // Store product key as a data attribute
-                    
-                    const imageElement = document.createElement("img");
-                    imageElement.src = product.image || 'default-image.png'; // Fallback image
-                    imageElement.alt = "Product Image";
-                    imageElement.classList.add("product-picture");
+                        // Create a new product element
+                        const productElement = document.createElement("div");
+                        productElement.classList.add("product");
+                        productElement.dataset.key = key; // Store product key as a data attribute
 
-                    const nameElement = document.createElement("p");
-                    nameElement.textContent = `Име: ${product.nameOfProduct}`;
-                    nameElement.classList.add("product-name");
-                    
+                        const imageElement = document.createElement("img");
+                        imageElement.src = product.image || 'default-image.png'; // Fallback image
+                        imageElement.alt = "Product Image";
+                        imageElement.classList.add("product-picture");
 
-                    const priceElement = document.createElement("p");
-                    priceElement.textContent = `Цена: ${product.priceOfProduct} лв.`;
-                    priceElement.classList.add("product-price");
+                        const nameElement = document.createElement("p");
+                        nameElement.textContent = `Име: ${product.nameOfProduct}`;
+                        nameElement.classList.add("product-name");
 
-                    // Append elements to the product element
-                    productElement.appendChild(imageElement);
-                    productElement.appendChild(nameElement);
-                    productElement.appendChild(priceElement);
+                        const priceElement = document.createElement("p");
+                        priceElement.textContent = `Цена: ${product.priceOfProduct} лв.`;
+                        priceElement.classList.add("product-price");
 
-                    // Append the product element to the container
-                    productContainer.appendChild(productElement);
-                }   }
-        
+                        // Append elements to the product element
+                        productElement.appendChild(imageElement);
+                        productElement.appendChild(nameElement);
+                        productElement.appendChild(priceElement);
 
-                
+                        // Append the product element to the container
+                        productContainer.appendChild(productElement);
+                    }
+                }
             }
-        
+
+            // Add event listener outside the loop
+            productContainer.addEventListener("click", function (event) {
+                const productElement = event.target.closest(".product");
+                if (productElement) {
+                    const name = productElement.querySelector(".product-name").textContent;
+                    document.getElementById("choosen-products").innerHTML = name;
+                    const detailsMenu = document.getElementById("product-menu-details");
+                    detailsMenu.style.display = "block";
+            
+                    const addProductButton = document.getElementById("add-product-button-goods-receipt");
+                    
+                    // Remove any previous event listeners to avoid duplicate actions
+                    addProductButton.removeEventListener("click", getElementsFromGoodsReceipt);
+                    addProductButton.addEventListener("click", getElementsFromGoodsReceipt);
+                    
+                    function getElementsFromGoodsReceipt() {
+                        const quantity = document.getElementById("quantity").value;
+                        const color = document.getElementById("color").value;
+                        const price = document.getElementById("price").value; // assuming you want to select the price element
+                        const supplement1 = document.getElementById("supplement-1");
+                        const supplement2 = document.getElementById("supplement-2");
+            
+                        let orderDetails = `${name}, ${quantity}, ${color}, ${price}`;
+            
+                        if (supplement1.checked) {
+                            orderDetails += " + добавка против мухъл";
+                        } else if (supplement2.checked) {
+                            orderDetails += " + двойна добавка против мухъл";
+                        }
+            
+                        // Store the order in localStorage
+                        localStorage.setItem("order", orderDetails);
+                    }
+                }
+            });
+            
         }
-    }
-    )} loadProductData();
+    }).catch((error) => {
+        console.error(error);
+    });
+}
+
+loadProductData(); // Load product data when the document is fully loaded
+});

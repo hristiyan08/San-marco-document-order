@@ -638,12 +638,12 @@ table, th, td {
     background-color: rgb(80, 80, 80);
     color: white;
     text-align: center;
-    display: none;
+   
 }
 
 #color{
     position: absolute;
-    top: 20%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%);
 }
@@ -656,24 +656,45 @@ table, th, td {
     width: 40%;
     color: white;
     border: 2px solid white;
+
 }
 
 #suppliment{
     position: absolute;
-    top: 65%;
+    top: 75%;
     left: 50%;
     transform: translate(-50%);
 }
 
 #quantity{
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%);
 }
 #price{
     position: absolute;
-    top: 35%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%); 
+}
+
+.choosen-products{
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 22%;
+  color: rgb(255, 255, 255);
+  font-weight: 1000;
+}
+
+#add-product-button-goods-receipt{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 90%;
+  
+   
 }
