@@ -131,7 +131,7 @@ function loadProductData() {
                         const supplement1 = document.getElementById("supplement-1");
                         const supplement2 = document.getElementById("supplement-2");
                     
-                        let orderDetails = `${quantity} л, ${color} - ${price} лв.`;
+                        let orderDetails = ` ${name}, ${quantity} л, ${color} - ${price} лв.`;
                     
                         if (supplement1.checked) {
                             orderDetails += " + добавка против мухъл";
