@@ -698,3 +698,34 @@ table, th, td {
   
    
 }
+
+#additonal-goods-receipt-menu{
+    position: absolute;
+    left: 18%;
+    width: 80%;
+    height: 99vh;
+}
+
+#next-2{
+    position: absolute;
+    left: 86%;
+    top: 86%;
+    width: 10%;
+    height: 4%;
+    background-color: rgb(149, 149, 149);
+    border: 2px solid black;
+    border-radius: 40px;
+    color: white;
+    font-size: 20px;
+}
+
+#add-another-product{
+    position: absolute;
+    left: 66%;
+    top: 86%;
+    width: 15%;
+    height: 4%;
+    border: 2px solid black;
+    border-radius: 40px;
+    font-size: 20px;
+}

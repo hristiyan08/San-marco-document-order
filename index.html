@@ -120,17 +120,20 @@
   <h1 class="title-admin">Детайли на продукта:</h1><br>
     <h2 class="title-admin">Избран продукт:</h2><br>
     <div class="choosen-products" id="choosen-products"></div> <br>
-    <label id="quantity" class="name-of-product">Количество:<input type="text" placeholder="Моля, въведете количество"class="key-input"></label><br>
-    <label id="color" class="name-of-product">Цвят: <input type="text" placeholder="Моля, въведете цвят"class="key-input"></label>
-    <label id="price" class="name-of-product">Цена на цвят: <input type="text" placeholder="Моля, въведете цена на цвят"class="key-input"></label><br>
+    <label id="quantity" class="name-of-product">Количество:<input type="text" placeholder="Моля, въведете количество"class="key-input" id="quantity-1"></label><br>
+    <label id="color" class="name-of-product">Цвят: <input type="text" placeholder="Моля, въведете цвят"class="key-input" id="color-1"></label>
+    <label id="price" class="name-of-product">Цена на цвят: <input type="text" placeholder="Моля, въведете цена на цвят"class="key-input" id="price-1"></label><br>
     <label id="suppliment" class="name-of-product">Добавка против мухъл:<br>
     <input type="checkbox" id="supplement-1"> Единична добавка <br>
     <input type="checkbox" id="supplement-2"> Двойна добавка <br>
   </label><br>
   <input type="button" class="add-user-button" id="add-product-button-goods-receipt" value="Добави продукт" >
 </div>
-<div class="additonal-goods-receipt-menu">
-  <h1 id="products"></h1>
+<div class="additonal-goods-receipt-menu" id="additonal-goods-receipt-menu" style="display: none;" >
+  <h1>Добавени продукти:</h1>
+  <h1 id="products-details"></h1>
+  <input type="button" value="Напред" id="next-2">
+  <input type="button" value="Добави нов продукт" id="add-another-product">
 </div>
 
 <div class="users" style="display: none;" id="user-menu" name="action-menu"> 

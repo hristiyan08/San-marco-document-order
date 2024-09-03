@@ -42,7 +42,7 @@ function toggleButton(buttonId, isClicked, tickElement) {
         }
     });
 }
-
+const paintMenu = document.getElementById("add-receipt-menu-paint");
 addNewReceiptButton.addEventListener("click", function () {
     const addNewReceiptMenu = document.getElementById("add-receipt-menu");
     addNewReceiptMenu.style.display = "block";
@@ -61,7 +61,7 @@ addNewReceiptButton.addEventListener("click", function () {
     const nextButton = document.getElementById("next-1");
     nextButton.addEventListener("click", function () {
         if (isClicked["paint"]) {
-            const paintMenu = document.getElementById("add-receipt-menu-paint");
+            
             paintMenu.style.display = "block";
             addNewReceiptMenu.style.display = "none";
         }
@@ -124,25 +124,40 @@ function loadProductData() {
                     // Remove any previous event listeners to avoid duplicate actions
                     addProductButton.removeEventListener("click", getElementsFromGoodsReceipt);
                     addProductButton.addEventListener("click", getElementsFromGoodsReceipt);
-                    
                     function getElementsFromGoodsReceipt() {
-                        const quantity = document.getElementById("quantity").value;
-                        const color = document.getElementById("color").value;
-                        const price = document.getElementById("price").value; // assuming you want to select the price element
+                        const quantity = document.getElementById("quantity-1").value;
+                        const color = document.getElementById("color-1").value;
+                        const price = document.getElementById("price-1").value; // assuming you want to select the price element
                         const supplement1 = document.getElementById("supplement-1");
                         const supplement2 = document.getElementById("supplement-2");
-            
-                        let orderDetails = `${name}, ${quantity}, ${color}, ${price}`;
-            
+                    
+                        let orderDetails = `${quantity} л, ${color} - ${price} лв.`;
+                    
                         if (supplement1.checked) {
                             orderDetails += " + добавка против мухъл";
                         } else if (supplement2.checked) {
                             orderDetails += " + двойна добавка против мухъл";
                         }
-            
-                        // Store the order in localStorage
-                        localStorage.setItem("order", orderDetails);
+                    
+                        // Get the existing orders from localStorage, or initialize an empty array if there are none
+                        let orders = JSON.parse(localStorage.getItem("orders")) || [];
+                    
+                        // Add the new order to the array
+                        orders.push(orderDetails);
+                    
+                        // Store the updated orders array in localStorage
+                        localStorage.setItem("orders", JSON.stringify(orders));
+                    
+                        const aditionalGoodsReceiptMenu = document.getElementById("additonal-goods-receipt-menu");
+                        aditionalGoodsReceiptMenu.style.display = 'block';
+                        detailsMenu.style.display = "none";
+                        paintMenu.style.display = "none";
+                    
+                        // Display all stored orders
+                        const productDetails = document.getElementById("products-details");
+                        productDetails.innerHTML = orders.join("<br>");
                     }
+                    
                 }
             });
             
