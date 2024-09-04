@@ -121,10 +121,16 @@ function loadProductData() {
             
                     const addProductButton = document.getElementById("add-product-button-goods-receipt");
                     
+                    function reloadPageWithDiv2() {
+                        localStorage.setItem('showesProductPage', 'true');
+                        window.location.reload();
+                    }
+
                     // Remove any previous event listeners to avoid duplicate actions
                     addProductButton.removeEventListener("click", getElementsFromGoodsReceipt);
                     addProductButton.addEventListener("click", getElementsFromGoodsReceipt);
-                    function getElementsFromGoodsReceipt() {
+                    function getElementsFromGoodsReceipt(event) {
+                        event.preventDefault();
                         const quantity = document.getElementById("quantity-1").value;
                         const color = document.getElementById("color-1").value;
                         const price = document.getElementById("price-1").value; // assuming you want to select the price element
@@ -156,6 +162,26 @@ function loadProductData() {
                         // Display all stored orders
                         const productDetails = document.getElementById("products-details");
                         productDetails.innerHTML = orders.join("<br>");
+
+
+                       const addAnotherProduct = document.getElementById("add-another-product");
+                       addAnotherProduct.addEventListener("click", function(){
+                     
+                        window.onload = function() {
+                            const showDiv2 = localStorage.getItem('showDiv2');
+                
+                            if (showDiv2 === 'true') {
+                             aditionalGoodsReceiptMenu.style.display = 'none';
+                             const addNewReceiptMenu = document.getElementById("add-receipt-menu");
+                        addNewReceiptMenu.style.display = "block";
+                        
+                                localStorage.removeItem('showDiv2'); // Remove after use
+                            }
+                        };
+                      
+                        
+
+                       })
                     }
                     
                 }
