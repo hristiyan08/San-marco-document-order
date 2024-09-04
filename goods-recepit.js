@@ -1,6 +1,12 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { getDatabase, ref, get, set, push, remove, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+
 window.addEventListener("DOMContentLoaded", function() {  
+
+
+
+
 
 
 const firebaseConfig = {
@@ -42,9 +48,10 @@ function toggleButton(buttonId, isClicked, tickElement) {
         }
     });
 }
+const addNewReceiptMenu = document.getElementById("add-receipt-menu");
 const paintMenu = document.getElementById("add-receipt-menu-paint");
-addNewReceiptButton.addEventListener("click", function () {
-    const addNewReceiptMenu = document.getElementById("add-receipt-menu");
+addNewReceiptButton.addEventListener("click",addNewReceiptMenuFunction());
+    function addNewReceiptMenuFunction() {
     addNewReceiptMenu.style.display = "block";
     const goodsReceptMenu = document.getElementById("goods-receipt-menu");
     goodsReceptMenu.style.display = "none";
@@ -66,7 +73,7 @@ addNewReceiptButton.addEventListener("click", function () {
             addNewReceiptMenu.style.display = "none";
         }
     });
-});
+};
 
 function loadProductData() {
     const dbRef = ref(db, 'products/');
@@ -121,11 +128,7 @@ function loadProductData() {
             
                     const addProductButton = document.getElementById("add-product-button-goods-receipt");
                     
-                    function reloadPageWithDiv2() {
-                        localStorage.setItem('showesProductPage', 'true');
-                        window.location.reload();
-                    }
-
+                   
                     // Remove any previous event listeners to avoid duplicate actions
                     addProductButton.removeEventListener("click", getElementsFromGoodsReceipt);
                     addProductButton.addEventListener("click", getElementsFromGoodsReceipt);
@@ -136,62 +139,69 @@ function loadProductData() {
                         const price = document.getElementById("price-1").value; // assuming you want to select the price element
                         const supplement1 = document.getElementById("supplement-1");
                         const supplement2 = document.getElementById("supplement-2");
-                    
+                        
                         let orderDetails = ` ${name}, ${quantity} л, ${color} - ${price} лв.`;
-                    
+                        
                         if (supplement1.checked) {
                             orderDetails += " + добавка против мухъл";
                         } else if (supplement2.checked) {
                             orderDetails += " + двойна добавка против мухъл";
                         }
-                    
+                        
                         // Get the existing orders from localStorage, or initialize an empty array if there are none
                         let orders = JSON.parse(localStorage.getItem("orders")) || [];
-                    
+                        
                         // Add the new order to the array
                         orders.push(orderDetails);
-                    
+                        
                         // Store the updated orders array in localStorage
                         localStorage.setItem("orders", JSON.stringify(orders));
-                    
+                        
                         const aditionalGoodsReceiptMenu = document.getElementById("additonal-goods-receipt-menu");
                         aditionalGoodsReceiptMenu.style.display = 'block';
                         detailsMenu.style.display = "none";
                         paintMenu.style.display = "none";
-                    
+                        
                         // Display all stored orders
                         const productDetails = document.getElementById("products-details");
                         productDetails.innerHTML = orders.join("<br>");
-
-
-                       const addAnotherProduct = document.getElementById("add-another-product");
-                       addAnotherProduct.addEventListener("click", function(){
-                     
-                        window.onload = function() {
-                            const showDiv2 = localStorage.getItem('showDiv2');
-                
-                            if (showDiv2 === 'true') {
-                             aditionalGoodsReceiptMenu.style.display = 'none';
-                             const addNewReceiptMenu = document.getElementById("add-receipt-menu");
-                        addNewReceiptMenu.style.display = "block";
                         
-                                localStorage.removeItem('showDiv2'); // Remove after use
-                            }
-                        };
+                        // This will run when the page loads
+                       
+                        
+                        const addAnotherProduct = document.getElementById("add-another-product");
+                        
+                        addAnotherProduct.addEventListener("click", function() {
+                            // Set localStorage item to "false" and reload the page
+                            localStorage.setItem("divIsOpen", "false");
+                            location.reload();
+                        });
+  
                       
                         
 
-                       })
+                  
                     }
                     
                 }
             });
-            
+          
         }
     }).catch((error) => {
         console.error(error);
     });
-}
 
+}
 loadProductData(); // Load product data when the document is fully loaded
-});
+
+
+
+if (localStorage.getItem("divIsOpen") === "false") {
+    // Display the addNewReceiptMenu if the condition is met
+    addNewReceiptMenuFunction ();
+    console.log("OK!!!");
+    
+    // Reset the localStorage value to avoid showing it again on subsequent reloads
+    localStorage.removeItem("divIsOpen");
+}
+})
