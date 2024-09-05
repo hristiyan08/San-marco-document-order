@@ -729,3 +729,9 @@ table, th, td {
     border-radius: 40px;
     font-size: 20px;
 }
+.add-receipt-menu-decoration{
+    position: absolute;
+    left: 16%;
+    width: 80%;
+    height: 98%;
+}

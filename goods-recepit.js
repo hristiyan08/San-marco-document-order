@@ -50,7 +50,13 @@ function toggleButton(buttonId, isClicked, tickElement) {
 }
 const addNewReceiptMenu = document.getElementById("add-receipt-menu");
 const paintMenu = document.getElementById("add-receipt-menu-paint");
-addNewReceiptButton.addEventListener("click",addNewReceiptMenuFunction());
+const decorationMenu = this.document.getElementById("add-receipt-menu-decoration")
+const primerMenu = this.document.getElementById("add-receipt-menu-primer")
+const fasadeMenu = this.document.getElementById("add-receipt-menu-fasade")
+const productMenu = this.document.getElementById("add-receipt-menu-product")
+addNewReceiptButton.addEventListener("click", function() {
+    addNewReceiptMenuFunction();
+});
     function addNewReceiptMenuFunction() {
     addNewReceiptMenu.style.display = "block";
     const goodsReceptMenu = document.getElementById("goods-receipt-menu");
@@ -72,29 +78,48 @@ addNewReceiptButton.addEventListener("click",addNewReceiptMenuFunction());
             paintMenu.style.display = "block";
             addNewReceiptMenu.style.display = "none";
         }
+        else if (isClicked["decoration"]){
+            decorationMenu.style.display = "block";
+            addNewReceiptMenu.style.display = "none";
+        }
+        else if (isClicked["primer"]){
+            primerMenu.style.display = "block";
+            addNewReceiptMenu.style.display = "none";
+        }
+        else if (isClicked["fasade"]){
+            fasadeMenu.style.display = "block";
+            addNewReceiptMenu.style.display = "none";
+        }
+        else {
+            productMenu.style.display = "block";
+            addNewReceiptMenu.style.display = "none"; 
+        }
     });
 };
-
 function loadProductData() {
     const dbRef = ref(db, 'products/');
     get(dbRef).then((snapshot) => {
         if (snapshot.exists()) {
             const products = snapshot.val();
-            const productContainer = document.getElementById("product-container");
-            productContainer.innerHTML = ""; // Clear previous products
+
+            // Get containers for paint and decoration
+            const productContainerForPaint = document.getElementsByName("product-container-1")[0];
+            const productContainerForDecoration = document.getElementsByName("product-container-2")[0]; 
+
+            productContainerForPaint.innerHTML = ""; // Clear previous products
+            productContainerForDecoration.innerHTML = ""; // Clear previous products
 
             for (const key in products) {
                 if (products.hasOwnProperty(key)) {
                     const product = products[key];
-                    if (product.typeOfProduct === "paint") {
 
-                        // Create a new product element
+                    function getElementsFromDB(container) {
                         const productElement = document.createElement("div");
                         productElement.classList.add("product");
-                        productElement.dataset.key = key; // Store product key as a data attribute
+                        productElement.dataset.key = key;
 
                         const imageElement = document.createElement("img");
-                        imageElement.src = product.image || 'default-image.png'; // Fallback image
+                        imageElement.src = product.image || 'default-image.png';
                         imageElement.alt = "Product Image";
                         imageElement.classList.add("product-picture");
 
@@ -106,93 +131,93 @@ function loadProductData() {
                         priceElement.textContent = `Цена: ${product.priceOfProduct} лв.`;
                         priceElement.classList.add("product-price");
 
-                        // Append elements to the product element
                         productElement.appendChild(imageElement);
                         productElement.appendChild(nameElement);
                         productElement.appendChild(priceElement);
 
-                        // Append the product element to the container
-                        productContainer.appendChild(productElement);
+                        container.appendChild(productElement);
+                    }
+
+                    if (product.typeOfProduct === "paint") {
+                        getElementsFromDB(productContainerForPaint);
+                    } else if (product.typeOfProduct === "decoration") {
+                        getElementsFromDB(productContainerForDecoration);
                     }
                 }
             }
 
-            // Add event listener outside the loop
-            productContainer.addEventListener("click", function (event) {
-                const productElement = event.target.closest(".product");
-                if (productElement) {
-                    const name = productElement.querySelector(".product-name").textContent;
-                    document.getElementById("choosen-products").innerHTML = name;
-                    const detailsMenu = document.getElementById("product-menu-details");
-                    detailsMenu.style.display = "block";
-            
-                    const addProductButton = document.getElementById("add-product-button-goods-receipt");
-                    
-                   
-                    // Remove any previous event listeners to avoid duplicate actions
-                    addProductButton.removeEventListener("click", getElementsFromGoodsReceipt);
-                    addProductButton.addEventListener("click", getElementsFromGoodsReceipt);
-                    function getElementsFromGoodsReceipt(event) {
-                        event.preventDefault();
-                        const quantity = document.getElementById("quantity-1").value;
-                        const color = document.getElementById("color-1").value;
-                        const price = document.getElementById("price-1").value; // assuming you want to select the price element
-                        const supplement1 = document.getElementById("supplement-1");
-                        const supplement2 = document.getElementById("supplement-2");
-                        
-                        let orderDetails = ` ${name}, ${quantity} л, ${color} - ${price} лв.`;
-                        
-                        if (supplement1.checked) {
-                            orderDetails += " + добавка против мухъл";
-                        } else if (supplement2.checked) {
-                            orderDetails += " + двойна добавка против мухъл";
-                        }
-                        
-                        // Get the existing orders from localStorage, or initialize an empty array if there are none
-                        let orders = JSON.parse(localStorage.getItem("orders")) || [];
-                        
-                        // Add the new order to the array
-                        orders.push(orderDetails);
-                        
-                        // Store the updated orders array in localStorage
-                        localStorage.setItem("orders", JSON.stringify(orders));
-                        
-                        const aditionalGoodsReceiptMenu = document.getElementById("additonal-goods-receipt-menu");
-                        aditionalGoodsReceiptMenu.style.display = 'block';
-                        detailsMenu.style.display = "none";
-                        paintMenu.style.display = "none";
-                        
-                        // Display all stored orders
-                        const productDetails = document.getElementById("products-details");
-                        productDetails.innerHTML = orders.join("<br>");
-                        
-                        // This will run when the page loads
-                       
-                        
-                        const addAnotherProduct = document.getElementById("add-another-product");
-                        
-                        addAnotherProduct.addEventListener("click", function() {
-                            // Set localStorage item to "false" and reload the page
-                            localStorage.setItem("divIsOpen", "false");
-                            location.reload();
-                        });
-  
-                      
-                        
+            const allProductContainers = document.querySelectorAll("#product-container"); // Fixed selector
 
-                  
+            allProductContainers.forEach((productContainer) => {
+                productContainer.addEventListener("click", (event) => {
+                    const productElement = event.target.closest(".product");
+                    if (productElement) {
+                        const name = productElement.querySelector(".product-name").textContent;
+                        document.getElementById("choosen-products").innerHTML = name;
+
+                        const detailsMenu = document.getElementById("product-menu-details");
+                        detailsMenu.style.display = "block";
+
+                        const addProductButton = document.getElementById("add-product-button-goods-receipt");
+
+                        // Remove any existing event listeners to avoid duplicates
+                        const newAddProductClickListener = function () {
+                            getElementsFromGoodsReceipt(name);
+                        };
+
+                        addProductButton.removeEventListener("click", newAddProductClickListener);
+                        addProductButton.addEventListener("click", newAddProductClickListener);
                     }
-                    
-                }
+                });
             });
-          
+
         }
     }).catch((error) => {
         console.error(error);
     });
-
 }
-loadProductData(); // Load product data when the document is fully loaded
+
+function getElementsFromGoodsReceipt(productName) {
+    const quantity = document.getElementById("quantity-1").value;
+    const color = document.getElementById("color-1").value;
+    const price = document.getElementById("price-1").value;
+    const supplement1 = document.getElementById("supplement-1");
+    const supplement2 = document.getElementById("supplement-2");
+
+    let orderDetails = `${productName}, ${quantity} л, ${color} - ${price} лв.`;
+
+    if (supplement1.checked) {
+        orderDetails += " + добавка против мухъл";
+    } else if (supplement2.checked) {
+        orderDetails += " + двойна добавка против мухъл";
+    }
+
+    // Store orders in localStorage
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    orders.push(orderDetails);
+    localStorage.setItem("orders", JSON.stringify(orders));
+
+    // Update UI with stored orders
+    const productDetails = document.getElementById("products-details");
+    productDetails.innerHTML = orders.join("<br>");
+
+    // Additional navigation logic
+    const addAnotherProduct = document.getElementById("add-another-product");
+    addAnotherProduct.addEventListener("click", function () {
+        localStorage.setItem("divIsOpen", "false");
+        location.reload();
+    });
+
+    const secondNextButton = document.getElementById("next-2");
+    secondNextButton.addEventListener("click", function () {
+        localStorage.removeItem("orders");
+        localStorage.removeItem("divIsOpen");
+    });
+}
+
+loadProductData();
+
+// Load product data when the document is fully loaded
 
 
 
@@ -202,6 +227,10 @@ if (localStorage.getItem("divIsOpen") === "false") {
     console.log("OK!!!");
     
     // Reset the localStorage value to avoid showing it again on subsequent reloads
-    localStorage.removeItem("divIsOpen");
+    
+}
+else{
+    console.log("OK!"); 
+    
 }
 })
