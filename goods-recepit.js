@@ -105,10 +105,14 @@ function loadProductData() {
             // Get containers for paint and decoration
             const productContainerForPaint = document.getElementsByName("product-container-1")[0];
             const productContainerForDecoration = document.getElementsByName("product-container-2")[0]; 
-
+            const productContainerForPrimer = document.getElementsByName("product-container-3")[0]; 
+            const productContainerForFasade = document.getElementsByName("product-container-4")[0];
+            const productContainerForProduct = document.getElementsByName("product-container-5")[0];  
             productContainerForPaint.innerHTML = ""; // Clear previous products
             productContainerForDecoration.innerHTML = ""; // Clear previous products
-
+            productContainerForPrimer.innerHTML = "";
+            productContainerForFasade.innerHTML = "";
+            productContainerForProduct.innerHTML = "";
             for (const key in products) {
                 if (products.hasOwnProperty(key)) {
                     const product = products[key];
@@ -143,12 +147,21 @@ function loadProductData() {
                     } else if (product.typeOfProduct === "decoration") {
                         getElementsFromDB(productContainerForDecoration);
                     }
+                    else if(product.typeOfProduct === "primer"){
+                        getElementsFromDB(productContainerForPrimer);
+                    }
+                    else if(product.typeOfProduct === "fasade"){
+                        getElementsFromDB(productContainerForFasade);
+                    }
+                    else {
+                        getElementsFromDB(productContainerForProduct);
+                    }
                 }
             }
 
-            const allProductContainers = document.querySelectorAll("#product-container"); // Fixed selector
+            const allProductContainers1 = document.querySelectorAll("#product-container-1"); // Fixed selector
 
-            allProductContainers.forEach((productContainer) => {
+            allProductContainers1.forEach((productContainer) => {
                 productContainer.addEventListener("click", (event) => {
                     const productElement = event.target.closest(".product");
                     if (productElement) {
@@ -171,6 +184,30 @@ function loadProductData() {
                 });
             });
 
+
+            const allProductContainers2 = document.querySelectorAll("#product-container-2"); 
+            allProductContainers2.forEach((productContainer) => {
+                productContainer.addEventListener("click", (event) => {
+                    const productElement = event.target.closest(".product");
+                    if (productElement) {
+                        const name = productElement.querySelector(".product-name").textContent;
+                        document.getElementById("choosen-products-1").innerHTML = name;
+
+                        const detailsMenu = document.getElementById("product-menu-details-primer");
+                        detailsMenu.style.display = "block";
+
+                        const addProductButton = document.getElementById("add-product-button-goods-receipt");
+
+                        // Remove any existing event listeners to avoid duplicates
+                        const newAddProductClickListener = function () {
+                            getElementsFromGoodsReceipt(name);
+                        };
+
+                        addProductButton.removeEventListener("click", newAddProductClickListener);
+                        addProductButton.addEventListener("click", newAddProductClickListener);
+                    }
+                });
+            });
         }
     }).catch((error) => {
         console.error(error);
