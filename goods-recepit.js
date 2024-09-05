@@ -96,12 +96,16 @@ addNewReceiptButton.addEventListener("click", function() {
         }
     });
 };
+
+
+
 function loadProductData() {
+ 
     const dbRef = ref(db, 'products/');
     get(dbRef).then((snapshot) => {
         if (snapshot.exists()) {
             const products = snapshot.val();
-
+            
             // Get containers for paint and decoration
             const productContainerForPaint = document.getElementsByName("product-container-1")[0];
             const productContainerForDecoration = document.getElementsByName("product-container-2")[0]; 
@@ -116,32 +120,33 @@ function loadProductData() {
             for (const key in products) {
                 if (products.hasOwnProperty(key)) {
                     const product = products[key];
-
+                    
                     function getElementsFromDB(container) {
                         const productElement = document.createElement("div");
                         productElement.classList.add("product");
                         productElement.dataset.key = key;
-
+                        
                         const imageElement = document.createElement("img");
                         imageElement.src = product.image || 'default-image.png';
                         imageElement.alt = "Product Image";
                         imageElement.classList.add("product-picture");
-
+                        
                         const nameElement = document.createElement("p");
                         nameElement.textContent = `Име: ${product.nameOfProduct}`;
+                        
                         nameElement.classList.add("product-name");
-
+                        
                         const priceElement = document.createElement("p");
                         priceElement.textContent = `Цена: ${product.priceOfProduct} лв.`;
                         priceElement.classList.add("product-price");
-
+                        
                         productElement.appendChild(imageElement);
                         productElement.appendChild(nameElement);
                         productElement.appendChild(priceElement);
-
+                        
                         container.appendChild(productElement);
                     }
-
+                    
                     if (product.typeOfProduct === "paint") {
                         getElementsFromDB(productContainerForPaint);
                     } else if (product.typeOfProduct === "decoration") {
@@ -158,33 +163,41 @@ function loadProductData() {
                     }
                 }
             }
-
+            
+            
             const allProductContainers1 = document.querySelectorAll("#product-container-1"); // Fixed selector
-
+            
             allProductContainers1.forEach((productContainer) => {
                 productContainer.addEventListener("click", (event) => {
                     const productElement = event.target.closest(".product");
                     if (productElement) {
                         const name = productElement.querySelector(".product-name").textContent;
                         document.getElementById("choosen-products").innerHTML = name;
-
+                        
                         const detailsMenu = document.getElementById("product-menu-details");
                         detailsMenu.style.display = "block";
-
+                        const aditionalMenu = document.getElementById("additonal-goods-receipt-menu");
                         const addProductButton = document.getElementById("add-product-button-goods-receipt");
-
+                        
                         // Remove any existing event listeners to avoid duplicates
                         const newAddProductClickListener = function () {
                             getElementsFromGoodsReceipt(name);
-                        };
-
+          
+                            aditionalMenu.style.display = "block";
+                            paintMenu.style.display = "none"
+                            decorationMenu.style.display = "none"
+                            primerMenu.style.display = "none"
+                            fasadeMenu.style.display = "none"
+                            productMenu.style.display = "none"
+                            detailsMenu.style.display = "none";
+                        }
                         addProductButton.removeEventListener("click", newAddProductClickListener);
                         addProductButton.addEventListener("click", newAddProductClickListener);
                     }
                 });
             });
-
-
+            
+            
             const allProductContainers2 = document.querySelectorAll("#product-container-2"); 
             allProductContainers2.forEach((productContainer) => {
                 productContainer.addEventListener("click", (event) => {
@@ -196,11 +209,20 @@ function loadProductData() {
                         const detailsMenu = document.getElementById("product-menu-details-primer");
                         detailsMenu.style.display = "block";
 
-                        const addProductButton = document.getElementById("add-product-button-goods-receipt");
-
+                        const addProductButton = document.getElementById("add-product-button-goods-receipt-2");
+                        const aditionalMenu = document.getElementById("additonal-goods-receipt-menu");
                         // Remove any existing event listeners to avoid duplicates
                         const newAddProductClickListener = function () {
                             getElementsFromGoodsReceipt(name);
+                            
+                            aditionalMenu.style.display = "block";
+                            paintMenu.style.display = "none"
+                            decorationMenu.style.display = "none"
+                            primerMenu.style.display = "none"
+                            fasadeMenu.style.display = "none"
+                            productMenu.style.display = "none"
+                            detailsMenu.style.display = "none";
+                           
                         };
 
                         addProductButton.removeEventListener("click", newAddProductClickListener);
@@ -212,22 +234,43 @@ function loadProductData() {
     }).catch((error) => {
         console.error(error);
     });
-}
+
 
 function getElementsFromGoodsReceipt(productName) {
+    let orderDetails = "";
+ 
+
+
+
+
+
     const quantity = document.getElementById("quantity-1").value;
     const color = document.getElementById("color-1").value;
     const price = document.getElementById("price-1").value;
     const supplement1 = document.getElementById("supplement-1");
     const supplement2 = document.getElementById("supplement-2");
 
-    let orderDetails = `${productName}, ${quantity} л, ${color} - ${price} лв.`;
+    orderDetails = `${productName}, ${quantity} л, ${color} - ${price} лв.`;
 
     if (supplement1.checked) {
         orderDetails += " + добавка против мухъл";
     } else if (supplement2.checked) {
         orderDetails += " + двойна добавка против мухъл";
     }
+  
+    
+
+
+
+
+    
+    
+    // const quantity2 = document.getElementById("quantity-2").value;
+    // orderDetails = `${productName} - ${quantity2}`
+    // console.log("aditional2");
+    
+
+
 
     // Store orders in localStorage
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -249,9 +292,9 @@ function getElementsFromGoodsReceipt(productName) {
     secondNextButton.addEventListener("click", function () {
         localStorage.removeItem("orders");
         localStorage.removeItem("divIsOpen");
-    });
+  });
 }
-
+}
 loadProductData();
 
 // Load product data when the document is fully loaded
@@ -269,5 +312,4 @@ if (localStorage.getItem("divIsOpen") === "false") {
 else{
     console.log("OK!"); 
     
-}
-})
+}})
