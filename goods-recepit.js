@@ -191,8 +191,7 @@ function loadProductData() {
                             fasadeMenu.style.display = "none"
                             productMenu.style.display = "none"
                             detailsMenu.style.display = "none";
-                            additonalMenu1 = true; // or set based on your logic
-                            additonalMenu2 = false; 
+                            
                         }
                         addProductButton.removeEventListener("click", newAddProductClickListener);
                         addProductButton.addEventListener("click", newAddProductClickListener);
@@ -226,8 +225,6 @@ function loadProductData() {
                             productMenu.style.display = "none"
                             detailsMenu.style.display = "none";
                              // Ensure flags are set appropriately
-    additonalMenu1 = false; // or set based on your logic
-    additonalMenu2 = true; // or set based on your logic
                         };
 
                         addProductButton.removeEventListener("click", newAddProductClickListener);
@@ -245,38 +242,28 @@ function loadProductData() {
         let orderDetails = "";
     
         // Function for additional menu 1
-        function additional1() {
+      const quantity1 = document.getElementById("quantity-2").value;
             const quantity = document.getElementById("quantity-1").value;
             const color = document.getElementById("color-1").value;
             const price = document.getElementById("price-1").value;
             const supplement1 = document.getElementById("supplement-1");
             const supplement2 = document.getElementById("supplement-2");
     
-            orderDetails = `${productName}, ${quantity} л, ${color} - ${price} лв.`;
+            orderDetails = `${productName}, ${quantity} ${quantity1} л, ${color} - ${price} лв.`;
     
             if (supplement1.checked) {
                 orderDetails += " + добавка против мухъл";
             } else if (supplement2.checked) {
                 orderDetails += " + двойна добавка против мухъл";
             }
-        }
+  
+           
+   
+            
+        
+      
     
-        // Function for additional menu 2
-        function additional2() {
-            const quantity2 = document.getElementById("quantity-2").value;
-            orderDetails = `${productName} - ${quantity2}`;
-            console.log("additional2");
-        }
-    
-        // Call appropriate function based on the state of flags
-        if (additonalMenu1) {
-            additional1();
-        }
-    
-        if (additonalMenu2) {
-            additional2();
-        }
-    
+ 
         // Store orders in localStorage
         let orders = JSON.parse(localStorage.getItem("orders")) || [];
         orders.push(orderDetails);
