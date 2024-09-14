@@ -1,0 +1,56 @@
+body {
+    margin: 2em;
+    color: #000;
+    background-color: #fff;
+}
+
+@media print {
+    body {
+        margin: 0;
+        color: #000;
+        background-color: #fff;
+    }
+    
+    header, footer, aside, nav, form, iframe, .menu, .hero, .adslot {
+        display: none;
+    }
+    
+    @page {
+        margin-left: 1.2cm;
+        margin-right: 2.1cm;
+        size: A4;
+    }
+    
+    .title {
+        position: absolute;
+        top: 0.5%;
+        font-size: 20px;
+        left: 40%;
+    }
+    
+    .logo {
+        position: absolute;
+        top: 1%;
+        left: 2%;
+        height: 50px;
+    }
+    
+    footer {
+        page-break-after: always;
+    }
+    
+    a {
+        page-break-inside: avoid;
+    }
+    
+    table, figure {
+        page-break-inside: avoid;
+    }
+    
+    a:link, a:visited {
+        color: black;
+        text-decoration: underline;
+        padding: 0;
+        background-color: none;
+    }
+}

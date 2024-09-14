@@ -141,6 +141,8 @@ function loadProductData() {
 
                     productContainer.style.filter = "blur(10px)";
                     document.getElementById("edit-product-meny").style.display = "block";
+                    document.getElementById("product-menu-details").style.display = "none";
+                    document.getElementById("product-menu-details-primer").style.display = "none";
 
                     // Close edit product menu
                     document.getElementById("close-edit-product-menu").addEventListener("click", function () {

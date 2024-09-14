@@ -314,7 +314,7 @@ left: 0px;
 }
 
 .product {
-    flex: 1 1 250px;       /* Allow items to grow and shrink, with a base width of 200px */
+    flex: 1 1 200px;       /* Allow items to grow and shrink, with a base width of 200px */
     border: 1px solid #ddd; /* Add a border around each product */
     border-radius: 5px;    /* Rounded corners for the border */
     padding: 10px;         /* Padding inside each product element */
@@ -734,4 +734,16 @@ table, th, td {
     left: 16%;
     width: 80%;
     height: 98%;
+}
+
+.logo-goods-receipt{
+    height: 5%;
+    position: absolute;
+    left: 3%;
+    top: 3%;
+}
+.title-goods-receipt{
+    position: absolute;
+    left: 45%;
+    font-size: 20px;
 }
